@@ -230,3 +230,25 @@ void forEach(List_ptr list, ElementProcessor processor)
     p_walk = p_walk->next;
   }
 }
+
+Status is_exists(List_ptr list, Element element, Matcher matcher)
+{
+  Node_ptr p_walk = list->first;
+  Status exist_status = Failure;
+
+  while (p_walk != NULL)
+  {
+    if ((*matcher)(element, p_walk->element))
+    {
+      exist_status = Success;
+    }
+    p_walk = p_walk->next;
+  }
+
+  return exist_status;
+}
+
+Status add_unique(List_ptr list, Element element, Matcher matcher)
+{
+  return !is_exists(list, element, matcher) && add_to_list(list, element);
+}

@@ -23,6 +23,11 @@ Element add(Element context, Element value)
   return context;
 }
 
+Status is_int_equal(Element elem1, Element elem2)
+{
+  return *(int *)elem1 == *(int *)elem2;
+}
+
 int main()
 {
   List_ptr numbers = create_list();
@@ -49,6 +54,10 @@ int main()
   *value = 0;
   Element sum = reduce(numbers, value, &add);
   printf("Sum: %d\n", *(int *)sum);
+
+  add_unique(numbers, five, &is_int_equal);
+  forEach(numbers, &display_int);
+  printf("\n");
 
   remove_from_start(numbers);
   remove_from_end(numbers);
