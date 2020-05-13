@@ -44,6 +44,12 @@ Status clear_list(List_ptr list)
   return is_list_cleared;
 }
 
+void destroy_list(List_ptr list)
+{
+  clear_list(list);
+  free(list);
+}
+
 Status add_to_list(List_ptr list, Element element)
 {
   Node_ptr new_node = create_node(element);

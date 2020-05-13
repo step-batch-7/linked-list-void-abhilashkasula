@@ -20,7 +20,6 @@ int main()
 
   forEach(numbers, &display_int);
 
-  clear_list(numbers);
-  free(numbers);
+  destroy_list(numbers);
   return 0;
 }
