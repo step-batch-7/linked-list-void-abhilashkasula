@@ -290,6 +290,36 @@ void test_clear_list(void)
   destroy_list(list_2);
 }
 
+void test_remove_from_start(void)
+{
+  printf("remove_from_start\n");
+  Element element;
+
+  List_ptr list_1 = create_list();
+  Element expected_1[0];
+  element = remove_from_start(list_1);
+  char msg_1[] = "should give NULL for empty list";
+
+  List_ptr list_2 = create_list();
+  Element number_2_1 = create_int(5);
+  add_to_list(list_2, number_2_1);
+  Element expected_2[0];
+  element = remove_from_start(list_2);
+  char msg_2[] = "should give removed element from start for one element given";
+  display_assertion(assert_int(element, number_2_1) && assert_list(list_2, expected_2, 0, &assert_int), msg_2);
+
+  List_ptr list_3 = create_list();
+  Element number_3_1 = create_int(5);
+  Element number_3_2 = create_int(6);
+  add_to_list(list_3, number_3_1);
+  add_to_list(list_3, number_3_2);
+  Element expected_3[1];
+  expected_3[0] = number_3_2;
+  element = remove_from_start(list_3);
+  char msg_3[] = "should give removed element from start for more than one element given";
+  display_assertion(assert_int(element, number_3_1) && assert_list(list_3, expected_3, 1, &assert_int), msg_3);
+}
+
 int main(void)
 {
   test_create_list();
@@ -298,6 +328,7 @@ int main(void)
   test_reverse();
   test_forEach();
   test_clear_list();
+  test_remove_from_start();
   display_passing_count();
   return 0;
 }
