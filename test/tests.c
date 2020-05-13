@@ -112,6 +112,28 @@ void test_add_to_start(void)
   add_to_start(list_3, number_3_3);
   char message_3[] = "should add number to start when the list has more than one element";
   display_assertion(assert_list(list_3, expected_3, 3, &assert_int), message_3);
+
+  List_ptr list_4 = create_list();
+  Element letter_4_1 = create_char('a');
+  Element expected_4[1];
+  expected_4[0] = letter_4_1;
+  add_to_start(list_4, letter_4_1);
+  char message_4[] = "should add a character to start when the list is empty";
+  display_assertion(assert_list(list_4, expected_4, 1, &assert_char), message_4);
+
+  List_ptr list_5 = create_list();
+  Element letter_5_1 = create_char('a');
+  Element letter_5_2 = create_char('b');
+  Element letter_5_3 = create_char('c');
+  Element expected_5[3];
+  expected_5[0] = letter_5_3;
+  expected_5[1] = letter_5_2;
+  expected_5[2] = letter_5_1;
+  add_to_start(list_5, letter_5_1);
+  add_to_start(list_5, letter_5_2);
+  add_to_start(list_5, letter_5_3);
+  char message_5[] = "should add character to start when the list has more than one element";
+  display_assertion(assert_list(list_5, expected_5, 3, &assert_char), message_5);
 }
 
 int main(void)
