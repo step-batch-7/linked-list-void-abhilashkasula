@@ -164,6 +164,20 @@ Element remove_from_end(List_ptr list)
   return removed;
 }
 
+List_ptr map(List_ptr list, Mapper mapper)
+{
+  List_ptr new_list = create_list();
+  Node_ptr p_walk = list->first;
+
+  while (p_walk != NULL)
+  {
+    add_to_list(new_list, (*mapper)(p_walk->element));
+    p_walk = p_walk->next;
+  }
+
+  return new_list;
+}
+
 void forEach(List_ptr list, ElementProcessor processor)
 {
   Node_ptr p_walk = list->first;
