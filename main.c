@@ -22,7 +22,10 @@ int main()
   add_to_list(numbers, four);
   add_to_start(numbers, three);
 
+  List_ptr reversed = reverse(numbers);
+
   forEach(numbers, &display_int);
+  forEach(reversed, &display_int);
 
   destroy_list(numbers);
   return 0;
