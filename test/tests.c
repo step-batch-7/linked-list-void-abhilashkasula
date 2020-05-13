@@ -299,6 +299,7 @@ void test_remove_from_start(void)
   Element expected_1[0];
   element = remove_from_start(list_1);
   char msg_1[] = "should give NULL for empty list";
+  display_assertion(element == NULL && assert_list(list_1, expected_1, 0, &assert_int), msg_1);
 
   List_ptr list_2 = create_list();
   Element number_2_1 = create_int(5);
@@ -320,6 +321,37 @@ void test_remove_from_start(void)
   display_assertion(assert_int(element, number_3_1) && assert_list(list_3, expected_3, 1, &assert_int), msg_3);
 }
 
+void test_remove_from_end(void)
+{
+  printf("remove_from_end\n");
+  Element elem;
+
+  List_ptr list_1 = create_list();
+  Element expected_1[0];
+  elem = remove_from_end(list_1);
+  char msg_1[] = "should give NULL for empty list given";
+  display_assertion(elem == NULL && assert_list(list_1, expected_1, 0, &assert_int), msg_1);
+
+  List_ptr list_2 = create_list();
+  Element number_2_1 = create_int(5);
+  Element expected_2[0];
+  add_to_list(list_2, number_2_1);
+  elem = remove_from_end(list_2);
+  char msg_2[] = "should give element removed from end for one element given";
+  display_assertion(assert_int(elem, number_2_1) && assert_list(list_2, expected_2, 0, &assert_int), msg_2);
+
+  List_ptr list_3 = create_list();
+  Element number_3_1 = create_int(5);
+  Element number_3_2 = create_int(6);
+  Element expected_3[1];
+  expected_3[0] = number_3_1;
+  add_to_list(list_3, number_3_1);
+  add_to_list(list_3, number_3_2);
+  elem = remove_from_end(list_3);
+  char msg_3[] = "should give element removed from end for more than one element given";
+  display_assertion(assert_int(elem, number_3_2) && assert_list(list_3, expected_3, 1, &assert_int), msg_3);
+}
+
 int main(void)
 {
   test_create_list();
@@ -329,6 +361,7 @@ int main(void)
   test_forEach();
   test_clear_list();
   test_remove_from_start();
+  test_remove_from_end();
   display_passing_count();
   return 0;
 }
