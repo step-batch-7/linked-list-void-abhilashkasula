@@ -38,9 +38,10 @@ void test_add_to_list(void)
   Element number_1_1 = create_int(5);
   Element expected_1[1];
   expected_1[0] = number_1_1;
-  add_to_list(list_1, number_1_1);
+  Status status_1 = add_to_list(list_1, number_1_1);
   char message_1[] = "should add number to the list when the list is empty";
-  display_assertion(assert_list(list_1, expected_1, 1, &assert_int), message_1);
+  Status assertion_status = assert_status(status_1, Success) && assert_list(list_1, expected_1, 1, &assert_int);
+  display_assertion(assertion_status, message_1);
   destroy_list(list_1);
 
   List_ptr list_2 = create_list();
@@ -53,18 +54,20 @@ void test_add_to_list(void)
   expected_2[2] = number_2_3;
   add_to_list(list_2, number_2_1);
   add_to_list(list_2, number_2_2);
-  add_to_list(list_2, number_2_3);
+  Status status_2 = add_to_list(list_2, number_2_3);
   char message_2[] = "should add number to the list when the list has elements";
-  display_assertion(assert_list(list_2, expected_2, 3, &assert_int), message_2);
+  assertion_status = assert_status(status_2, Success) && assert_list(list_2, expected_2, 3, &assert_int);
+  display_assertion(assertion_status, message_2);
   destroy_list(list_2);
 
   List_ptr list_3 = create_list();
   Element letter_3_1 = create_char('a');
   Element expected_3[1];
   expected_3[0] = letter_3_1;
-  add_to_list(list_3, letter_3_1);
+  Status status_3 = add_to_list(list_3, letter_3_1);
   char message_3[] = "should add character to the list when the list is empty";
-  display_assertion(assert_list(list_3, expected_3, 1, &assert_char), message_3);
+  assertion_status = assert_status(status_3, Success) && assert_list(list_3, expected_3, 1, &assert_char);
+  display_assertion(assertion_status, message_3);
   destroy_list(list_3);
 
   List_ptr list_4 = create_list();
@@ -76,22 +79,28 @@ void test_add_to_list(void)
   expected_4[1] = letter_4_2;
   expected_4[2] = letter_4_3;
   add_to_list(list_4, letter_4_1);
+  add_to_list(list_4, letter_4_2);
+  Status status_4 = add_to_list(list_4, letter_4_3);
   char message_4[] = "should add character to the list when the list has elements";
-  display_assertion(assert_list(list_4, expected_4, 1, &assert_char), message_4);
+  assertion_status = assert_status(status_4, Success) && assert_list(list_4, expected_4, 3, &assert_char);
+  display_assertion(assertion_status, message_4);
   destroy_list(list_4);
 }
 
 void test_add_to_start(void)
 {
   printf("add_to_start\n");
+  Status status;
+  Status assertion_status;
 
   List_ptr list_1 = create_list();
   Element number_1_1 = create_int(4);
   Element expected_1[1];
   expected_1[0] = number_1_1;
-  add_to_start(list_1, number_1_1);
+  status = add_to_start(list_1, number_1_1);
   char message_1[] = "should add number to start when the list is empty";
-  display_assertion(assert_list(list_1, expected_1, 1, &assert_int), message_1);
+  assertion_status = assert_status(status, Success) && assert_list(list_1, expected_1, 1, &assert_int);
+  display_assertion(assertion_status, message_1);
   destroy_list(list_1);
 
   List_ptr list_2 = create_list();
@@ -101,9 +110,10 @@ void test_add_to_start(void)
   expected_2[0] = number_2_2;
   expected_2[1] = number_2_1;
   add_to_start(list_2, number_2_1);
-  add_to_start(list_2, number_2_2);
+  status = add_to_start(list_2, number_2_2);
   char message_2[] = "should add number to start when the list has one element";
-  display_assertion(assert_list(list_2, expected_2, 2, &assert_int), message_2);
+  assertion_status = assert_status(status, Success) && assert_list(list_2, expected_2, 2, &assert_int);
+  display_assertion(assertion_status, message_2);
   destroy_list(list_2);
 
   List_ptr list_3 = create_list();
@@ -116,18 +126,20 @@ void test_add_to_start(void)
   expected_3[2] = number_3_1;
   add_to_start(list_3, number_3_1);
   add_to_start(list_3, number_3_2);
-  add_to_start(list_3, number_3_3);
+  status = add_to_start(list_3, number_3_3);
   char message_3[] = "should add number to start when the list has more than one element";
-  display_assertion(assert_list(list_3, expected_3, 3, &assert_int), message_3);
+  assertion_status = assert_status(status, Success) && assert_list(list_3, expected_3, 3, &assert_int);
+  display_assertion(assertion_status, message_3);
   destroy_list(list_3);
 
   List_ptr list_4 = create_list();
   Element letter_4_1 = create_char('a');
   Element expected_4[1];
   expected_4[0] = letter_4_1;
-  add_to_start(list_4, letter_4_1);
+  status = add_to_start(list_4, letter_4_1);
   char message_4[] = "should add a character to start when the list is empty";
-  display_assertion(assert_list(list_4, expected_4, 1, &assert_char), message_4);
+  assertion_status = assert_status(status, Success) && assert_list(list_4, expected_4, 1, &assert_char);
+  display_assertion(assertion_status, message_4);
   destroy_list(list_4);
 
   List_ptr list_5 = create_list();
@@ -140,9 +152,10 @@ void test_add_to_start(void)
   expected_5[2] = letter_5_1;
   add_to_start(list_5, letter_5_1);
   add_to_start(list_5, letter_5_2);
-  add_to_start(list_5, letter_5_3);
+  status = add_to_start(list_5, letter_5_3);
   char message_5[] = "should add character to start when the list has more than one element";
-  display_assertion(assert_list(list_5, expected_5, 3, &assert_char), message_5);
+  assertion_status = assert_status(status, Success) && assert_list(list_5, expected_5, 3, &assert_char);
+  display_assertion(assertion_status, message_5);
   destroy_list(list_5);
 }
 

@@ -12,6 +12,7 @@
 typedef Status (*Assert_element)(Element, Element);
 
 Status assert_list(List_ptr, Element *, int, Assert_element);
+Status assert_status(Status status_1, Status status_2);
 void display_assertion(Status, char *);
 void display_passing_count(void);
 

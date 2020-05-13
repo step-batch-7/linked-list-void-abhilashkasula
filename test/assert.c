@@ -3,7 +3,7 @@
 int tests_passing = 0;
 int tests_failing = 0;
 
-Status assert_list(List_ptr list, Element *list_2, int length, Status (*assert)(Element, Element))
+Status assert_list(List_ptr list, Element *list_2, int length, Assert_element assert)
 {
   if (length != list->length)
   {
@@ -20,6 +20,11 @@ Status assert_list(List_ptr list, Element *list_2, int length, Status (*assert)(
   }
 
   return assertion_status;
+}
+
+Status assert_status(Status status_1, Status status_2)
+{
+  return status_1 == status_2;
 }
 
 void display_assertion(Status assertion_status, char *message)
