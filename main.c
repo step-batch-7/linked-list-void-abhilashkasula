@@ -17,6 +17,12 @@ Status is_even(Element element)
   return *(int *)element % 2 == 0;
 }
 
+Element add(Element context, Element value)
+{
+  *(int *)context = *(int *)context + *(int *)value;
+  return context;
+}
+
 int main()
 {
   List_ptr numbers = create_list();
@@ -38,6 +44,11 @@ int main()
   List_ptr squares = map(numbers, &square);
   List_ptr evens = filter(numbers, &is_even);
   forEach(evens, &display_int);
+
+  int *value = malloc(sizeof(int));
+  *value = 0;
+  Element sum = reduce(numbers, value, &add);
+  printf("Sum: %d\n", *(int *)sum);
 
   remove_from_start(numbers);
   remove_from_end(numbers);

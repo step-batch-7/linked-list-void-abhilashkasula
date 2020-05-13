@@ -207,6 +207,19 @@ List_ptr filter(List_ptr list, Predicate predicate)
   return create_list_from(filtered_elements, length);
 }
 
+Element reduce(List_ptr list, Element context, Reducer reducer)
+{
+  Node_ptr p_walk = list->first;
+
+  while (p_walk != NULL)
+  {
+    context = (*reducer)(context, p_walk->element);
+    p_walk = p_walk->next;
+  }
+
+  return context;
+}
+
 void forEach(List_ptr list, ElementProcessor processor)
 {
   Node_ptr p_walk = list->first;
