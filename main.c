@@ -12,6 +12,11 @@ Element square(Element element)
   return (Element)value;
 }
 
+Status is_even(Element element)
+{
+  return *(int *)element % 2 == 0;
+}
+
 int main()
 {
   List_ptr numbers = create_list();
@@ -31,6 +36,8 @@ int main()
 
   List_ptr reversed = reverse(numbers);
   List_ptr squares = map(numbers, &square);
+  List_ptr evens = filter(numbers, &is_even);
+  forEach(evens, &display_int);
 
   remove_from_start(numbers);
   remove_from_end(numbers);

@@ -14,6 +14,16 @@ List_ptr create_list(void)
   return new_list;
 }
 
+List_ptr create_list_from(Element *elements, int length)
+{
+  List_ptr new_list = create_list();
+  for (int i = 0; i < length; i++)
+  {
+    add_to_list(new_list, elements[i]);
+  }
+  return new_list;
+}
+
 Node_ptr create_node(Element element)
 {
   Node_ptr new_node = malloc(sizeof(Node));
@@ -176,6 +186,25 @@ List_ptr map(List_ptr list, Mapper mapper)
   }
 
   return new_list;
+}
+
+List_ptr filter(List_ptr list, Predicate predicate)
+{
+  Element filtered_elements[list->length];
+  int length = 0;
+  Node_ptr p_walk = list->first;
+
+  while (p_walk != NULL)
+  {
+    if ((*predicate)(p_walk->element))
+    {
+      filtered_elements[length] = p_walk->element;
+      length++;
+    }
+    p_walk = p_walk->next;
+  }
+
+  return create_list_from(filtered_elements, length);
 }
 
 void forEach(List_ptr list, ElementProcessor processor)
