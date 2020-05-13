@@ -27,6 +27,23 @@ Node_ptr create_node(Element element)
   return new_node;
 }
 
+Status clear_list(List_ptr list)
+{
+  Status is_list_cleared = Failure;
+  Node_ptr p_walk = list->first;
+
+  while (p_walk != NULL)
+  {
+    Node_ptr ptr_to_free = p_walk;
+    p_walk = p_walk->next;
+    free(ptr_to_free->element);
+    free(ptr_to_free);
+    is_list_cleared = Success;
+  }
+
+  return is_list_cleared;
+}
+
 Status add_to_list(List_ptr list, Element element)
 {
   Node_ptr new_node = create_node(element);

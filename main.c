@@ -19,5 +19,8 @@ int main()
   add_to_list(numbers, four);
 
   forEach(numbers, &display_int);
+
+  clear_list(numbers);
+  free(numbers);
   return 0;
 }
