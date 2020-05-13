@@ -30,14 +30,11 @@ Node_ptr create_node(Element element)
 Status clear_list(List_ptr list)
 {
   Status is_list_cleared = Failure;
-  Node_ptr p_walk = list->first;
 
-  while (p_walk != NULL)
+  while (list->first != NULL)
   {
-    Node_ptr ptr_to_free = p_walk;
-    p_walk = p_walk->next;
-    free(ptr_to_free->element);
-    free(ptr_to_free);
+    Element elem = remove_from_start(list);
+    free(elem);
     is_list_cleared = Success;
   }
 
