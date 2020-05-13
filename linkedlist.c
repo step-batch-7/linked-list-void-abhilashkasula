@@ -107,6 +107,26 @@ List_ptr reverse(List_ptr list)
   return reversed_list;
 }
 
+Element remove_from_start(List_ptr list)
+{
+  if (list->first == NULL)
+  {
+    return list->first;
+  }
+  if (list->first->next == NULL)
+  {
+    list->last = NULL;
+  }
+
+  Node_ptr ptr_to_free = list->first;
+  Element removed = list->first->element;
+  list->first = list->first->next;
+  free(ptr_to_free);
+  list->length--;
+
+  return removed;
+}
+
 void forEach(List_ptr list, ElementProcessor processor)
 {
   Node_ptr p_walk = list->first;
