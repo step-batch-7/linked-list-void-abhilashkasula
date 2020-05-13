@@ -15,8 +15,12 @@ int main()
   int *four = malloc(sizeof(int));
   *four = 4;
 
+  int *three = malloc(sizeof(int));
+  *three = 3;
+
   add_to_list(numbers, five);
   add_to_list(numbers, four);
+  add_to_start(numbers, three);
 
   forEach(numbers, &display_int);
 
