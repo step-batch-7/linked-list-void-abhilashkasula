@@ -25,6 +25,11 @@ Element create_char(char value)
   return (Element)element;
 }
 
+void modify_to_zero(Element elem)
+{
+  *(int *)elem = 0;
+}
+
 void test_add_to_list(void)
 {
   printf("add_to_list\n");
@@ -191,7 +196,7 @@ void test_reverse(void)
   add_to_list(alphabets, letter_3);
   List_ptr actual_4 = reverse(alphabets);
   char message_4[] = "should reverse the numbers for more than one element given";
-  display_assertion(assert_list(actual_4, expected_4, 3, &assert_int), message_4);
+  display_assertion(assert_list(actual_4, expected_4, 3, &assert_char), message_4);
   destroy_list(alphabets);
 }
 
@@ -202,6 +207,45 @@ void test_create_list(void)
   List_ptr list = create_list();
   char msg[] = "should create a list with length 0";
   display_assertion(list->first == NULL && list->last == NULL && list->length == 0, msg);
+  destroy_list(list);
+}
+
+void test_forEach(void)
+{
+  printf("forEach\n");
+
+  List_ptr list_1 = create_list();
+  Element expected_1[0];
+  forEach(list_1, &modify_to_zero);
+  char msg_1[] = "should iterate on empty list";
+  display_assertion(assert_list(list_1, expected_1, 0, &assert_int), msg_1);
+  destroy_list(list_1);
+
+  List_ptr list_2 = create_list();
+  Element number_2_1 = create_int(5);
+  Element expected_2[1];
+  expected_2[0] = create_int(0);
+  add_to_list(list_2, number_2_1);
+  forEach(list_2, &modify_to_zero);
+  char msg_2[] = "should iterate on single element";
+  display_assertion(assert_list(list_2, expected_2, 1, &assert_int), msg_2);
+  destroy_list(list_1);
+  free(expected_2[0]);
+
+  List_ptr list_3 = create_list();
+  Element number_3_1 = create_int(5);
+  Element number_3_2 = create_int(6);
+  Element expected_3[2];
+  Element zero = create_int(0);
+  expected_3[0] = zero;
+  expected_3[1] = zero;
+  add_to_list(list_3, number_3_1);
+  add_to_list(list_3, number_3_2);
+  forEach(list_3, &modify_to_zero);
+  char msg_3[] = "should iterate on single element";
+  display_assertion(assert_list(list_3, expected_3, 2, &assert_int), msg_3);
+  destroy_list(list_1);
+  free(expected_3[0]);
 }
 
 int main(void)
@@ -210,6 +254,7 @@ int main(void)
   test_add_to_list();
   test_add_to_start();
   test_reverse();
+  test_forEach();
   display_passing_count();
   return 0;
 }
