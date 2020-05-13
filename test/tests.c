@@ -229,7 +229,7 @@ void test_forEach(void)
   forEach(list_2, &modify_to_zero);
   char msg_2[] = "should iterate on single element";
   display_assertion(assert_list(list_2, expected_2, 1, &assert_int), msg_2);
-  destroy_list(list_1);
+  destroy_list(list_2);
   free(expected_2[0]);
 
   List_ptr list_3 = create_list();
@@ -244,7 +244,7 @@ void test_forEach(void)
   forEach(list_3, &modify_to_zero);
   char msg_3[] = "should iterate on single element";
   display_assertion(assert_list(list_3, expected_3, 2, &assert_int), msg_3);
-  destroy_list(list_1);
+  destroy_list(list_2);
   free(expected_3[0]);
 }
 
