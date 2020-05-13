@@ -25,6 +25,7 @@ int main()
   List_ptr reversed = reverse(numbers);
 
   remove_from_start(numbers);
+  remove_from_end(numbers);
 
   forEach(numbers, &display_int);
   forEach(reversed, &display_int);

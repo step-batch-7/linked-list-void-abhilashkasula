@@ -124,6 +124,46 @@ Element remove_from_start(List_ptr list)
   return removed;
 }
 
+Prev_curr_pair *get_prev_curr(List_ptr list)
+{
+  Prev_curr_pair *prev_curr = malloc(sizeof(Prev_curr_pair));
+  prev_curr->prev = NULL;
+  prev_curr->curr = list->first;
+
+  while (prev_curr->curr->next != NULL)
+  {
+    prev_curr->prev = prev_curr->curr;
+    prev_curr->curr = prev_curr->curr->next;
+  }
+
+  return prev_curr;
+}
+
+Element remove_from_end(List_ptr list)
+{
+  if (list->first == NULL)
+  {
+    return list->first;
+  }
+
+  Prev_curr_pair *prev_curr = get_prev_curr(list);
+  if (prev_curr->prev == NULL)
+  {
+    list->first = NULL;
+  }
+  else
+  {
+    prev_curr->prev->next = NULL;
+  }
+
+  list->last = prev_curr->prev;
+  Element removed = prev_curr->curr->element;
+  free(prev_curr->curr);
+  free(prev_curr);
+  list->length--;
+  return removed;
+}
+
 void forEach(List_ptr list, ElementProcessor processor)
 {
   Node_ptr p_walk = list->first;

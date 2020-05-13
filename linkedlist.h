@@ -32,6 +32,12 @@ typedef struct linklist
   int length;
 } LinkedList;
 
+typedef struct
+{
+  Node *prev;
+  Node *curr;
+} Prev_curr_pair;
+
 typedef LinkedList *List_ptr;
 
 typedef Element (*Mapper)(Element);
@@ -56,6 +62,7 @@ void forEach(List_ptr, ElementProcessor processor);
 
 Element remove_from_start(List_ptr); // Returns Element which was removed
 Element remove_from_end(List_ptr);
+Prev_curr_pair *get_prev_curr(List_ptr);
 Element remove_at(List_ptr, int position);
 
 Element remove_first_occurrence(List_ptr, Element element, Matcher matcher);
