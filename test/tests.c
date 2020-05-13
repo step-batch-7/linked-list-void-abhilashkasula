@@ -195,8 +195,18 @@ void test_reverse(void)
   destroy_list(alphabets);
 }
 
+void test_create_list(void)
+{
+  printf("create_list\n");
+
+  List_ptr list = create_list();
+  char msg[] = "should create a list with length 0";
+  display_assertion(list->first == NULL && list->last == NULL && list->length == 0, msg);
+}
+
 int main(void)
 {
+  test_create_list();
   test_add_to_list();
   test_add_to_start();
   test_reverse();
