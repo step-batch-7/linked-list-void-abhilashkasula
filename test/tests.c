@@ -18,10 +18,10 @@ void test_add_to_list(void)
   Element number_1_1 = create_int(5);
   Element elements_1[1];
   elements_1[0] = number_1_1;
-
   add_to_list(list, number_1_1);
   char message_1[] = "should add an element to the list when the list is empty";
   display_assertion(assert_list(list, elements_1, 1, &assert_int), message_1);
+  destroy_list(list);
 }
 
 int main(void)
