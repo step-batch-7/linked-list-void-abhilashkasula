@@ -177,6 +177,22 @@ void test_reverse(void)
   char message_3[] = "should reverse the numbers for more than one element given";
   display_assertion(assert_list(actual_3, expected_3, 3, &assert_int), message_3);
   destroy_list(numbers_3);
+
+  List_ptr alphabets = create_list();
+  Element letter_1 = create_char('a');
+  Element letter_2 = create_char('b');
+  Element letter_3 = create_char('c');
+  Element expected_4[3];
+  expected_4[0] = letter_3;
+  expected_4[1] = letter_2;
+  expected_4[2] = letter_1;
+  add_to_list(alphabets, letter_1);
+  add_to_list(alphabets, letter_2);
+  add_to_list(alphabets, letter_3);
+  List_ptr actual_4 = reverse(alphabets);
+  char message_4[] = "should reverse the numbers for more than one element given";
+  display_assertion(assert_list(actual_4, expected_4, 3, &assert_int), message_4);
+  destroy_list(alphabets);
 }
 
 int main(void)
