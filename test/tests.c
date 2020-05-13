@@ -287,7 +287,6 @@ void test_clear_list(void)
   assertion_status = assert_status(status, Success);
   char msg_2[] = "should give Success for clearing the elements";
   display_assertion(assertion_status && assert_list(list_2, expected_2, 0, &assert_int), msg_2);
-  // display_assertion(assertion_status && assert_list(list_2, expected_2, 0, &assert_int), msg_2);
   destroy_list(list_2);
 }
 
