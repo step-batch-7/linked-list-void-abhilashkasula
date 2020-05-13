@@ -41,6 +41,9 @@ Status clear_list(List_ptr list)
     is_list_cleared = Success;
   }
 
+  list->first = NULL;
+  list->last = NULL;
+  list->length = 0;
   return is_list_cleared;
 }
 

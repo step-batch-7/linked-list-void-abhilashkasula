@@ -261,6 +261,36 @@ void test_forEach(void)
   free(expected_3[0]);
 }
 
+void test_clear_list(void)
+{
+  printf("clear_list\n");
+  Status status;
+  Status assertion_status;
+
+  List_ptr list_1 = create_list();
+  Element expected_1[0];
+  status = clear_list(list_1);
+  assertion_status = assert_status(status, Failure);
+  char msg_1[] = "should give Failure status for empty list";
+  display_assertion(assertion_status && assert_list(list_1, expected_1, 0, &assert_int), msg_1);
+  destroy_list(list_1);
+
+  List_ptr list_2 = create_list();
+  Element number_1 = create_int(1);
+  Element number_2 = create_int(2);
+  Element number_3 = create_int(3);
+  add_to_list(list_2, number_1);
+  add_to_list(list_2, number_2);
+  add_to_list(list_2, number_3);
+  Element expected_2[0];
+  status = clear_list(list_2);
+  assertion_status = assert_status(status, Success);
+  char msg_2[] = "should give Success for clearing the elements";
+  display_assertion(assertion_status && assert_list(list_2, expected_2, 0, &assert_int), msg_2);
+  // display_assertion(assertion_status && assert_list(list_2, expected_2, 0, &assert_int), msg_2);
+  destroy_list(list_2);
+}
+
 int main(void)
 {
   test_create_list();
@@ -268,6 +298,7 @@ int main(void)
   test_add_to_start();
   test_reverse();
   test_forEach();
+  test_clear_list();
   display_passing_count();
   return 0;
 }
