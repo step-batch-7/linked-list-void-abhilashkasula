@@ -684,6 +684,56 @@ void test_remove_first_occurrence(void)
   destroy_list(list_4);
 }
 
+void display_int(Element elem)
+{
+  printf("%d\n\n", *(int *)elem);
+}
+
+void test_remove_all_occurrences(void)
+{
+  printf("remove_all_occurrences\n");
+
+  List_ptr list_1 = create_list();
+  Element number_1 = create_int(3);
+  Element expected_1[0];
+  List_ptr removed_list_1 = remove_all_occurrences(list_1, number_1, &is_int_equal);
+  char msg_1[] = "should give empty list for empty list given";
+  display_assertion(assert_list(removed_list_1, expected_1, 0, &assert_int), msg_1);
+  destroy_list(list_1);
+
+  List_ptr list_2 = create_list();
+  Element number_2_1 = create_int(1);
+  Element expected_2_1[1];
+  Element expected_2_2[0];
+  expected_2_1[0] = number_2_1;
+  add_to_list(list_2, number_2_1);
+  List_ptr removed_list_2 = remove_all_occurrences(list_2, number_2_1, &is_int_equal);
+  char msg_2[] = "should remove one element asked when there is only one number of same present";
+  Status assertion_1 = assert_list(removed_list_2, expected_2_1, 1, &assert_int);
+  Status assertion_2 = assert_list(list_2, expected_2_2, 0, &assert_int);
+  display_assertion(assertion_1 && assertion_2, msg_2);
+  destroy_list(list_2);
+
+  List_ptr list_3 = create_list();
+  Element number_3_1 = create_int(1);
+  Element number_3_2 = create_int(2);
+  Element number_3_3 = create_int(1);
+  Element number_to_remove = create_int(1);
+  Element expected_3_1[1];
+  expected_3_1[0] = number_3_2;
+  Element expected_3_2[2];
+  expected_3_2[0] = number_3_1;
+  expected_3_2[1] = number_3_3;
+  add_to_list(list_3, number_3_1);
+  add_to_list(list_3, number_3_2);
+  add_to_list(list_3, number_3_3);
+  List_ptr removed_list_3 = remove_all_occurrences(list_3, number_to_remove, &is_int_equal);
+  assertion_1 = assert_list(list_3, expected_3_1, 1, &assert_int);
+  assertion_2 = assert_list(removed_list_3, expected_3_2, 2, &assert_int);
+  char msg_3[] = "should remove all occurring number";
+  display_assertion(assertion_1 && assertion_2, msg_3);
+}
+
 int main(void)
 {
   test_create_list();
@@ -699,6 +749,7 @@ int main(void)
   test_remove_at();
   test_add_unique();
   test_remove_first_occurrence();
+  test_remove_all_occurrences();
   display_passing_count();
   return 0;
 }

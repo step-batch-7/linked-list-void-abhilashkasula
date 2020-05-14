@@ -317,15 +317,17 @@ List_ptr remove_all_occurrences(List_ptr list, Element element, Matcher matcher)
 {
   List_ptr new_list = create_list();
   Node_ptr p_walk = list->first;
+  Node_ptr next_element = p_walk;
 
   for (int i = 0; i < list->length; i++)
   {
-    if ((*matcher)(element, p_walk->element))
+    p_walk = p_walk->next;
+    if ((*matcher)(element, next_element->element))
     {
-      remove_at(list, i);
+      add_to_list(new_list, remove_at(list, i));
       i--;
     }
-    p_walk = p_walk->next;
+    next_element = p_walk;
   }
 
   return new_list;
