@@ -411,6 +411,88 @@ void test_map(void)
   List_ptr actual_3 = map(list_3, &convert_to_lowercase);
   char msg_3[] = "should give lowercase letters for given uppercase";
   display_assertion(assert_list(actual_3, expected_3, 2, &assert_char), msg_3);
+  destroy_list(list_3);
+  destroy_list(actual_3);
+  free(expected_3[0]);
+  free(expected_3[1]);
+}
+
+void test_insert_at(void)
+{
+  printf("insert_at\n");
+  Status status;
+
+  List_ptr list_1 = create_list();
+  Element number_1_1 = create_int(1);
+  Element expected_1[1];
+  expected_1[0] = number_1_1;
+  status = insert_at(list_1, number_1_1, 0);
+  char msg_1[] = "should insert at 0 when the list is empty";
+  display_assertion(assert_status(status, Success) && assert_list(list_1, expected_1, 1, &assert_int), msg_1);
+  destroy_list(list_1);
+
+  List_ptr list_2 = create_list();
+  Element number_2_1 = create_int(1);
+  Element expected_2[0];
+  status = insert_at(list_2, number_2_1, 1);
+  char msg_2[] = "should not insert at any other position other than 0 when list is empty";
+  display_assertion(assert_status(status, Failure) && assert_list(list_2, expected_2, 0, &assert_int), msg_2);
+  destroy_list(list_2);
+  free(number_2_1);
+
+  List_ptr list_3 = create_list();
+  Element number_3_1 = create_int(1);
+  Element number_3_2 = create_int(2);
+  Element number_3_3 = create_int(3);
+  Element expected_3[3];
+  expected_3[0] = number_3_1;
+  expected_3[1] = number_3_2;
+  expected_3[2] = number_3_3;
+  add_to_list(list_3, number_3_1);
+  add_to_list(list_3, number_3_2);
+  status = insert_at(list_3, number_3_3, 2);
+  char msg_3[] = "should insert at last index in the list";
+  display_assertion(assert_status(status, Success) && assert_list(list_3, expected_3, 3, &assert_int), msg_3);
+  destroy_list(list_3);
+
+  List_ptr list_4 = create_list();
+  Element number_4_1 = create_int(1);
+  Element number_4_2 = create_int(2);
+  Element number_4_3 = create_int(3);
+  Element expected_4[3];
+  expected_4[0] = number_4_1;
+  expected_4[1] = number_4_3;
+  expected_4[2] = number_4_2;
+  add_to_list(list_4, number_4_1);
+  add_to_list(list_4, number_4_2);
+  status = insert_at(list_4, number_4_3, 1);
+  char msg_4[] = "should insert in the middle of the list";
+  display_assertion(assert_status(status, Success) && assert_list(list_4, expected_4, 3, &assert_int), msg_4);
+  destroy_list(list_4);
+
+  List_ptr list_5 = create_list();
+  Element number_5_1 = create_int(1);
+  Element number_5_2 = create_int(2);
+  Element number_5_3 = create_int(3);
+  Element expected_5[3];
+  expected_5[0] = number_5_1;
+  expected_5[1] = number_5_2;
+  add_to_list(list_5, number_5_1);
+  add_to_list(list_5, number_5_2);
+  status = insert_at(list_5, number_5_3, 3);
+  char msg_5[] = "should not insert at invalid position in the list";
+  display_assertion(assert_status(status, Failure) && assert_list(list_5, expected_5, 2, &assert_int), msg_5);
+  destroy_list(list_5);
+  free(number_5_3);
+
+  List_ptr list_6 = create_list();
+  Element letter = create_char('a');
+  Element expected_6[1];
+  expected_6[0] = letter;
+  status = insert_at(list_6, letter, 0);
+  char msg_6[] = "should insert a character to the list";
+  display_assertion(assert_status(status, Success) && assert_list(list_6, expected_6, 1, &assert_char), msg_6);
+  destroy_list(list_6);
 }
 
 int main(void)
@@ -423,6 +505,7 @@ int main(void)
   test_clear_list();
   test_remove_from_start();
   test_remove_from_end();
+  test_insert_at();
   test_map();
   display_passing_count();
   return 0;
