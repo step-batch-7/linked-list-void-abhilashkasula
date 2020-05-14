@@ -306,3 +306,9 @@ Element remove_at(List_ptr list, int position)
   list->length--;
   return removed;
 }
+
+Element remove_first_occurrence(List_ptr list, Element element, Matcher matcher)
+{
+  int index_of_element = search(list, element, matcher);
+  return remove_at(list, index_of_element);
+}

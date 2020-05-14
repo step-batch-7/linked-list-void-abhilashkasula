@@ -65,6 +65,8 @@ int main()
   insert_at(numbers, value, 0);
   remove_at(numbers, 1);
 
+  remove_first_occurrence(numbers, sum, is_int_equal);
+
   forEach(squares, &display_int);
   forEach(numbers, &display_int);
   forEach(reversed, &display_int);
