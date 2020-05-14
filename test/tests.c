@@ -495,6 +495,74 @@ void test_insert_at(void)
   destroy_list(list_6);
 }
 
+void test_remove_at(void)
+{
+  printf("remove_at\n");
+  Element element;
+
+  List_ptr list_1 = create_list();
+  Element expected_1[0];
+  element = remove_at(list_1, 0);
+  char msg_1[] = "should give element NULL for any position to remove when list is empty";
+  display_assertion(element == NULL && assert_list(list_1, expected_1, 0, &assert_int), msg_1);
+  destroy_list(list_1);
+
+  List_ptr list_2 = create_list();
+  Element number_2_1 = create_int(1);
+  Element expected_2[0];
+  add_to_list(list_2, number_2_1);
+  element = remove_at(list_2, 0);
+  char msg_2[] = "should remove element at position 0;";
+  display_assertion(assert_int(element, number_2_1) && assert_list(list_2, expected_2, 0, &assert_int), msg_2);
+  destroy_list(list_2);
+
+  List_ptr list_3 = create_list();
+  Element number_3_1 = create_int(1);
+  Element number_3_2 = create_int(2);
+  Element number_3_3 = create_int(3);
+  Element expected_3[2];
+  expected_3[0] = number_3_1;
+  expected_3[1] = number_3_2;
+  add_to_list(list_3, number_3_1);
+  add_to_list(list_3, number_3_2);
+  add_to_list(list_3, number_3_3);
+  element = remove_at(list_3, 2);
+  char msg_3[] = "should remove last element in the list;";
+  display_assertion(assert_int(element, number_3_3) && assert_list(list_3, expected_3, 2, &assert_int), msg_3);
+  destroy_list(list_3);
+
+  List_ptr list_4 = create_list();
+  Element number_4_1 = create_int(1);
+  Element number_4_2 = create_int(2);
+  Element number_4_3 = create_int(3);
+  Element expected_4[3];
+  expected_4[0] = number_4_1;
+  expected_4[1] = number_4_2;
+  expected_4[2] = number_4_3;
+  add_to_list(list_4, number_4_1);
+  add_to_list(list_4, number_4_2);
+  add_to_list(list_4, number_4_3);
+  element = remove_at(list_4, 5);
+  char msg_4[] = "should give NULL for position not in the list";
+  display_assertion(element == NULL && assert_list(list_4, expected_4, 3, &assert_int), msg_4);
+  destroy_list(list_4);
+
+  List_ptr list_5 = create_list();
+  Element number_5_1 = create_int(1);
+  Element number_5_2 = create_int(2);
+  Element number_5_3 = create_int(3);
+  Element expected_5[2];
+  expected_5[0] = number_5_1;
+  expected_5[1] = number_5_3;
+  add_to_list(list_5, number_5_1);
+  add_to_list(list_5, number_5_2);
+  add_to_list(list_5, number_5_3);
+  element = remove_at(list_5, 1);
+  char msg_5[] = "should remove element from the middle of the list";
+  display_assertion(assert_int(element, number_5_2) && assert_list(list_5, expected_5, 2, &assert_int), msg_5);
+  destroy_list(list_5);
+}
+
 int main(void)
 {
   test_create_list();
@@ -507,6 +575,7 @@ int main(void)
   test_remove_from_end();
   test_insert_at();
   test_map();
+  test_remove_at();
   display_passing_count();
   return 0;
 }
