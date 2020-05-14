@@ -63,6 +63,7 @@ int main()
   remove_from_end(numbers);
 
   insert_at(numbers, value, 0);
+  remove_at(numbers, 1);
 
   forEach(squares, &display_int);
   forEach(numbers, &display_int);

@@ -281,3 +281,26 @@ Status insert_at(List_ptr list, Element element, int position)
 
   return Success;
 }
+
+Element remove_at(List_ptr list, int position)
+{
+  if (position < 0 || position > list->length - 1)
+  {
+    return NULL;
+  }
+  if (position == 0)
+  {
+    return remove_from_start(list);
+  }
+  if (position == list->length - 1)
+  {
+    return remove_from_end(list);
+  }
+
+  Prev_curr_pair *prev_curr = get_prev_curr(list, position);
+  Element removed = prev_curr->curr->element;
+  prev_curr->prev->next = prev_curr->curr->next;
+  free(prev_curr->curr);
+  list->length--;
+  return removed;
+}
