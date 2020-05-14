@@ -304,18 +304,12 @@ Element remove_first_occurrence(List_ptr list, Element element, Matcher matcher)
 List_ptr remove_all_occurrences(List_ptr list, Element element, Matcher matcher)
 {
   List_ptr new_list = create_list();
-  Node_ptr p_walk = list->first;
-  Node_ptr current_element = p_walk;
+  int index = search(list, element, matcher);
 
-  for (int i = 0; i < list->length; i++)
+  while (index != -1)
   {
-    p_walk = p_walk->next;
-    if ((*matcher)(element, current_element->element))
-    {
-      add_to_list(new_list, remove_at(list, i));
-      i--;
-    }
-    current_element = p_walk;
+    add_to_list(new_list, remove_at(list, index));
+    index = search(list, element, matcher);
   }
 
   return new_list;
