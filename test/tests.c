@@ -734,6 +734,14 @@ void test_remove_all_occurrences(void)
   display_assertion(assertion_1 && assertion_2, msg_3);
 }
 
+void test_filter(void)
+{
+  // printf("filter\n");
+
+  // List_ptr list_1 = create_list();
+  // E
+}
+
 int main(void)
 {
   test_create_list();
@@ -746,6 +754,7 @@ int main(void)
   test_remove_from_end();
   test_insert_at();
   test_map();
+  test_filter();
   test_remove_at();
   test_add_unique();
   test_remove_first_occurrence();
