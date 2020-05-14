@@ -37,6 +37,13 @@ Element square(Element element)
   return result;
 }
 
+Element convert_to_lowercase(Element element)
+{
+  char *result = malloc(sizeof(int));
+  *result = *(int *)element + 32;
+  return result;
+}
+
 void test_add_to_list(void)
 {
   printf("add_to_list\n");
@@ -386,10 +393,24 @@ void test_map(void)
   add_to_list(list_2, number_1);
   add_to_list(list_2, number_2);
   List_ptr actual_2 = map(list_2, &square);
-  char msg_2[] = "should give empty list for empty list given";
+  char msg_2[] = "should give squares of the numbers given";
   display_assertion(assert_list(actual_2, expected_2, 2, &assert_int), msg_2);
   destroy_list(list_2);
   destroy_list(actual_2);
+  free(expected_2[0]);
+  free(expected_2[1]);
+
+  List_ptr list_3 = create_list();
+  Element letter_1 = create_char('A');
+  Element letter_2 = create_char('B');
+  Element expected_3[2];
+  expected_3[0] = create_char('a');
+  expected_3[1] = create_char('b');
+  add_to_list(list_3, letter_1);
+  add_to_list(list_3, letter_2);
+  List_ptr actual_3 = map(list_3, &convert_to_lowercase);
+  char msg_3[] = "should give lowercase letters for given uppercase";
+  display_assertion(assert_list(actual_3, expected_3, 2, &assert_char), msg_3);
 }
 
 int main(void)
