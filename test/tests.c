@@ -630,6 +630,60 @@ void test_add_unique(void)
   destroy_list(list_5);
 }
 
+void test_remove_first_occurrence(void)
+{
+  printf("remove_first_occurrence\n");
+  Element element;
+
+  List_ptr list_1 = create_list();
+  Element number_1 = create_int(1);
+  Element expected_1[0];
+  element = remove_first_occurrence(list_1, number_1, &is_int_equal);
+  char msg_1[] = "should give NULL for the element not in the list";
+  display_assertion(element == NULL && assert_list(list_1, expected_1, 0, &assert_int), msg_1);
+  destroy_list(list_1);
+  free(number_1);
+
+  List_ptr list_2 = create_list();
+  Element number_2 = create_int(1);
+  add_to_list(list_2, number_2);
+  Element expected_2[0];
+  element = remove_first_occurrence(list_2, number_2, &is_int_equal);
+  char msg_2[] = "should remove the element asked when there is only one element";
+  display_assertion(assert_int(element, number_2) && assert_list(list_2, expected_2, 0, &assert_int), msg_2);
+  destroy_list(list_2);
+
+  List_ptr list_3 = create_list();
+  Element number_3 = create_int(1);
+  Element number_4 = create_int(1);
+  Element number_5 = create_int(1);
+  add_to_list(list_3, number_3);
+  add_to_list(list_3, number_4);
+  add_to_list(list_3, number_5);
+  Element expected_3[2];
+  expected_3[0] = number_4;
+  expected_3[1] = number_5;
+  element = remove_first_occurrence(list_2, number_3, &is_int_equal);
+  char msg_3[] = "should remove first occurrence when there is more than one of same numbers";
+  display_assertion(assert_int(element, number_3) && assert_list(list_3, expected_3, 2, &assert_int), msg_3);
+  destroy_list(list_3);
+
+  List_ptr list_4 = create_list();
+  Element letter_1 = create_char('a');
+  Element letter_2 = create_char('b');
+  Element letter_3 = create_char('a');
+  add_to_list(list_4, letter_1);
+  add_to_list(list_4, letter_2);
+  add_to_list(list_4, letter_3);
+  Element expected_4[2];
+  expected_4[0] = letter_2;
+  expected_4[1] = letter_3;
+  element = remove_first_occurrence(list_2, letter_1, &is_int_equal);
+  char msg_4[] = "should remove first occurrence when there is more than one of same characters";
+  display_assertion(assert_int(element, letter_1) && assert_list(list_4, expected_4, 2, &assert_char), msg_4);
+  destroy_list(list_4);
+}
+
 int main(void)
 {
   test_create_list();
@@ -644,6 +698,7 @@ int main(void)
   test_map();
   test_remove_at();
   test_add_unique();
+  test_remove_first_occurrence();
   display_passing_count();
   return 0;
 }
