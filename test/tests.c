@@ -44,6 +44,11 @@ Element convert_to_lowercase(Element element)
   return result;
 }
 
+Status is_int_equal(Element a, Element b)
+{
+  return *(int *)a == *(int *)b;
+}
+
 void test_add_to_list(void)
 {
   printf("add_to_list\n");
@@ -563,6 +568,68 @@ void test_remove_at(void)
   destroy_list(list_5);
 }
 
+void test_add_unique(void)
+{
+  printf("add_unique\n");
+  Status status;
+
+  List_ptr list_1 = create_list();
+  Element number_1 = create_int(1);
+  Element expected_1[1];
+  expected_1[0] = number_1;
+  status = add_unique(list_1, number_1, &is_int_equal);
+  char msg_1[] = "should add any number when list is empty";
+  display_assertion(assert_status(status, Success) && assert_list(list_1, expected_1, 1, &assert_int), msg_1);
+  destroy_list(list_1);
+
+  List_ptr list_2 = create_list();
+  Element number_2 = create_int(1);
+  Element number_3 = create_int(1);
+  Element expected_2[1];
+  expected_2[0] = number_2;
+  add_unique(list_2, number_2, &is_int_equal);
+  status = add_unique(list_2, number_3, &is_int_equal);
+  char msg_2[] = "should not add a number to list when already in the list";
+  display_assertion(assert_status(status, Failure) && assert_list(list_2, expected_2, 1, &assert_int), msg_2);
+  destroy_list(list_2);
+  free(number_3);
+
+  List_ptr list_3 = create_list();
+  Element number_4 = create_int(1);
+  Element number_5 = create_int(2);
+  Element expected_3[2];
+  expected_3[0] = number_4;
+  expected_3[1] = number_5;
+  add_unique(list_3, number_4, &is_int_equal);
+  status = add_unique(list_3, number_5, &is_int_equal);
+  char msg_3[] = "should add a number to list when it isn't already in the list";
+  display_assertion(assert_status(status, Success) && assert_list(list_3, expected_3, 2, &assert_int), msg_3);
+  destroy_list(list_3);
+
+  List_ptr list_4 = create_list();
+  Element letter_1 = create_char('a');
+  Element letter_2 = create_char('b');
+  Element expected_4[2];
+  expected_4[0] = letter_1;
+  expected_4[1] = letter_2;
+  add_unique(list_4, letter_1, &is_int_equal);
+  status = add_unique(list_4, letter_2, &is_int_equal);
+  char msg_4[] = "should add a char to list when it isn't already in the list";
+  display_assertion(assert_status(status, Success) && assert_list(list_4, expected_4, 2, &assert_int), msg_4);
+  destroy_list(list_4);
+
+  List_ptr list_5 = create_list();
+  Element letter_3 = create_char('a');
+  Element letter_4 = create_char('a');
+  Element expected_5[1];
+  expected_5[0] = letter_3;
+  add_unique(list_5, letter_3, &is_int_equal);
+  status = add_unique(list_5, letter_4, &is_int_equal);
+  char msg_5[] = "shouldn't add a char to list when it already in the list";
+  display_assertion(assert_status(status, Failure) && assert_list(list_5, expected_5, 1, &assert_int), msg_5);
+  destroy_list(list_5);
+}
+
 int main(void)
 {
   test_create_list();
@@ -576,6 +643,7 @@ int main(void)
   test_insert_at();
   test_map();
   test_remove_at();
+  test_add_unique();
   display_passing_count();
   return 0;
 }
