@@ -65,7 +65,11 @@ int main()
   insert_at(numbers, value, 0);
   remove_at(numbers, 1);
 
-  remove_first_occurrence(numbers, sum, is_int_equal);
+  // remove_first_occurrence(numbers, sum, is_int_equal);
+  int *twelve = malloc(sizeof(int));
+  *twelve = 12;
+  add_to_list(numbers, twelve);
+  remove_all_occurrences(numbers, sum, is_int_equal);
 
   forEach(squares, &display_int);
   forEach(numbers, &display_int);

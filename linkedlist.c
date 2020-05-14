@@ -312,3 +312,21 @@ Element remove_first_occurrence(List_ptr list, Element element, Matcher matcher)
   int index_of_element = search(list, element, matcher);
   return remove_at(list, index_of_element);
 }
+
+List_ptr remove_all_occurrences(List_ptr list, Element element, Matcher matcher)
+{
+  List_ptr new_list = create_list();
+  Node_ptr p_walk = list->first;
+
+  for (int i = 0; i < list->length; i++)
+  {
+    if ((*matcher)(element, p_walk->element))
+    {
+      remove_at(list, i);
+      i--;
+    }
+    p_walk = p_walk->next;
+  }
+
+  return new_list;
+}
