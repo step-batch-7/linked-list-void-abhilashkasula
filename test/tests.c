@@ -700,11 +700,6 @@ void test_remove_first_occurrence(void)
   destroy_list(list_4);
 }
 
-void display_int(Element elem)
-{
-  printf("%d\n\n", *(int *)elem);
-}
-
 void test_remove_all_occurrences(void)
 {
   printf("remove_all_occurrences\n");
@@ -748,6 +743,8 @@ void test_remove_all_occurrences(void)
   assertion_2 = assert_list(removed_list_3, expected_3_2, 2, &assert_int);
   char msg_3[] = "should remove all occurring number";
   display_assertion(assertion_1 && assertion_2, msg_3);
+  destroy_list(list_3);
+  free(number_to_remove);
 }
 
 void test_filter(void)
@@ -759,6 +756,7 @@ void test_filter(void)
   List_ptr actual_1 = filter(list_1, &is_even);
   char msg_1[] = "should give empty list for empty list given";
   display_assertion(assert_list(actual_1, expected_1, 0, &assert_int), msg_1);
+  destroy_list(list_1);
 
   List_ptr list_2 = create_list();
   Element number_2_1 = create_int(1);
@@ -769,6 +767,7 @@ void test_filter(void)
   List_ptr actual_2 = filter(list_2, &is_even);
   char msg_2[] = "should give empty list for no evens in the list given";
   display_assertion(assert_list(actual_2, expected_2, 0, &assert_int), msg_2);
+  destroy_list(list_2);
 
   List_ptr list_3 = create_list();
   Element number_3_1 = create_int(2);
@@ -781,6 +780,7 @@ void test_filter(void)
   List_ptr actual_3 = filter(list_3, &is_even);
   char msg_3[] = "should give whole list for all elements are evens";
   display_assertion(assert_list(actual_3, expected_3, 2, &assert_int), msg_3);
+  destroy_list(list_3);
 
   List_ptr list_4 = create_list();
   Element number_4_1 = create_int(2);
@@ -792,6 +792,7 @@ void test_filter(void)
   List_ptr actual_4 = filter(list_4, &is_even);
   char msg_4[] = "should filter evens for numbers given";
   display_assertion(assert_list(actual_4, expected_4, 1, &assert_int), msg_4);
+  destroy_list(list_4);
 
   List_ptr list_5 = create_list();
   Element letter_1 = create_char('a');
@@ -803,6 +804,7 @@ void test_filter(void)
   List_ptr actual_5 = filter(list_5, &is_letter_a);
   char msg_5[] = "should filter characters";
   display_assertion(assert_list(actual_5, expected_5, 1, &assert_char), msg_5);
+  destroy_list(list_5);
 }
 
 void test_reduce(void)
@@ -814,6 +816,8 @@ void test_reduce(void)
   Element actual_1 = reduce(list_1, init_1, &add);
   char msg_1[] = "should give initial context for empty list given";
   display_assertion(assert_int(actual_1, init_1), msg_1);
+  destroy_list(list_1);
+  free(init_1);
 
   List_ptr list_2 = create_list();
   Element init_2 = create_int(1);
@@ -825,6 +829,9 @@ void test_reduce(void)
   Element expected_2 = create_int(12);
   char msg_2[] = "should give initial context for empty list given";
   display_assertion(assert_int(actual_2, expected_2), msg_2);
+  destroy_list(list_2);
+  free(init_2);
+  free(expected_2);
 }
 
 int main(void)
