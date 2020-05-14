@@ -62,6 +62,8 @@ int main()
   remove_from_start(numbers);
   remove_from_end(numbers);
 
+  insert_at(numbers, value, 0);
+
   forEach(squares, &display_int);
   forEach(numbers, &display_int);
   forEach(reversed, &display_int);

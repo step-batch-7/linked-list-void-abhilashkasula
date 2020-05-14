@@ -134,13 +134,13 @@ Element remove_from_start(List_ptr list)
   return removed;
 }
 
-Prev_curr_pair *get_prev_curr(List_ptr list)
+Prev_curr_pair *get_prev_curr(List_ptr list, int position)
 {
   Prev_curr_pair *prev_curr = malloc(sizeof(Prev_curr_pair));
   prev_curr->prev = NULL;
   prev_curr->curr = list->first;
 
-  while (prev_curr->curr->next != NULL)
+  for (int i = 0; i < position; i++)
   {
     prev_curr->prev = prev_curr->curr;
     prev_curr->curr = prev_curr->curr->next;
@@ -156,7 +156,7 @@ Element remove_from_end(List_ptr list)
     return list->first;
   }
 
-  Prev_curr_pair *prev_curr = get_prev_curr(list);
+  Prev_curr_pair *prev_curr = get_prev_curr(list, list->length - 1);
   if (prev_curr->prev == NULL)
   {
     list->first = NULL;
@@ -251,4 +251,33 @@ Status is_exists(List_ptr list, Element element, Matcher matcher)
 Status add_unique(List_ptr list, Element element, Matcher matcher)
 {
   return !is_exists(list, element, matcher) && add_to_list(list, element);
+}
+
+Status insert_at(List_ptr list, Element element, int position)
+{
+  if (position < 0 || position > list->length)
+  {
+    return Failure;
+  }
+  if (position == 0)
+  {
+    return add_to_start(list, element);
+  }
+  if (position == list->length)
+  {
+    return add_to_list(list, element);
+  }
+
+  Node_ptr new_node = create_node(element);
+  if (new_node == NULL)
+  {
+    return Failure;
+  }
+
+  Prev_curr_pair *prev_curr = get_prev_curr(list, position);
+  new_node->next = prev_curr->curr;
+  prev_curr->prev->next = new_node;
+  list->length++;
+
+  return Success;
 }

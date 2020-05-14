@@ -62,7 +62,7 @@ void forEach(List_ptr, ElementProcessor processor);
 
 Element remove_from_start(List_ptr); // Returns Element which was removed
 Element remove_from_end(List_ptr);
-Prev_curr_pair *get_prev_curr(List_ptr);
+Prev_curr_pair *get_prev_curr(List_ptr, int);
 Element remove_at(List_ptr, int position);
 
 Element remove_first_occurrence(List_ptr, Element element, Matcher matcher);
