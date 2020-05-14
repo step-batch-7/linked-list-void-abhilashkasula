@@ -231,26 +231,28 @@ void forEach(List_ptr list, ElementProcessor processor)
   }
 }
 
-Status is_exists(List_ptr list, Element element, Matcher matcher)
+int search(List_ptr list, Element element, Matcher matcher)
 {
   Node_ptr p_walk = list->first;
-  Status exist_status = Failure;
+  Status is_absent = Success;
+  int index = -1;
 
-  while (p_walk != NULL)
+  for (int i = 0; i < list->length && is_absent; i++)
   {
     if ((*matcher)(element, p_walk->element))
     {
-      exist_status = Success;
+      index = i;
+      is_absent = Failure;
     }
     p_walk = p_walk->next;
   }
 
-  return exist_status;
+  return index;
 }
 
 Status add_unique(List_ptr list, Element element, Matcher matcher)
 {
-  return !is_exists(list, element, matcher) && add_to_list(list, element);
+  return search(list, element, matcher) == -1 && add_to_list(list, element);
 }
 
 Status insert_at(List_ptr list, Element element, int position)
