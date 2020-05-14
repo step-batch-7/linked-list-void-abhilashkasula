@@ -59,6 +59,12 @@ Status is_letter_a(Element elem)
   return *(char *)elem == 'a';
 }
 
+Element add(Element a, Element b)
+{
+  *(int *)a = *(int *)a + *(int *)b;
+  return a;
+}
+
 void test_add_to_list(void)
 {
   printf("add_to_list\n");
@@ -799,6 +805,28 @@ void test_filter(void)
   display_assertion(assert_list(actual_5, expected_5, 1, &assert_char), msg_5);
 }
 
+void test_reduce(void)
+{
+  printf("reduce\n");
+
+  List_ptr list_1 = create_list();
+  Element init_1 = create_int(5);
+  Element actual_1 = reduce(list_1, init_1, &add);
+  char msg_1[] = "should give initial context for empty list given";
+  display_assertion(assert_int(actual_1, init_1), msg_1);
+
+  List_ptr list_2 = create_list();
+  Element init_2 = create_int(1);
+  Element number_1 = create_int(5);
+  Element number_2 = create_int(6);
+  add_to_list(list_2, number_1);
+  add_to_list(list_2, number_2);
+  Element actual_2 = reduce(list_2, init_2, &add);
+  Element expected_2 = create_int(12);
+  char msg_2[] = "should give initial context for empty list given";
+  display_assertion(assert_int(actual_2, expected_2), msg_2);
+}
+
 int main(void)
 {
   test_create_list();
@@ -812,6 +840,7 @@ int main(void)
   test_insert_at();
   test_map();
   test_filter();
+  test_reduce();
   test_remove_at();
   test_add_unique();
   test_remove_first_occurrence();
